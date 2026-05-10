@@ -1,0 +1,35 @@
+# Skyramp Workspace Configuration
+workspace:
+  repoName: tnautiyal/hotel-booking-system
+  repoUrl: https://github.com/tnautiyal/hotel-booking-system
+metadata:
+  schemaVersion: v1
+  mcpVersion: 0.1.6
+  executorVersion: v1.3.23
+  createdAt: "2026-05-10T17:54:24.016Z"
+  updatedAt: "2026-05-10T17:54:24.023Z"
+services:
+  - serviceName: hotel-booking-backend
+    language: typescript
+    framework: playwright
+    testDirectory: tests/hotel-booking-backend
+    api:
+      schemaPath: http://localhost:5000/api-docs
+      authType: bearer
+      authHeader: Authorization
+      authScheme: Bearer
+      baseUrl: http://localhost:5000
+    runtimeDetails:
+      serverStartCommand: docker compose up -d backend
+      runtime: docker
+      dockerNetwork: hotel-booking-system_default
+  - serviceName: hotel-booking-frontend
+    language: typescript
+    framework: playwright
+    testDirectory: tests/hotel-booking-frontend
+    api:
+      authType: none
+      baseUrl: http://localhost:5174
+    runtimeDetails:
+      serverStartCommand: npm run dev
+      runtime: local
